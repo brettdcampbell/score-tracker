@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Score Tracker</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    </head>
+    <body class="w3-container">
+
+        <h2>Score Tracker</h2>
+
+        <input id="score" placeholder="enter score">
+        <button type="button" onclick="addScore()">Submit</button><br><br>
+
+        <div id="scoreList"></div>
+
+        <br><hr><br>
+
+        <button type="button" onclick="removeScore()">Clear Last Score</button><br><br>
+        <button type="button" onclick="clearScores()">Clear All Scores</button>
+
+        <script>
+            const scores = [];
+
+            function addScore() {
+                // Get score from input, verify is integer, append to scores
+                let score = parseFloat(document.getElementById("score").value);
+                if (Number.isInteger(score)) {
+                    scores.push(score);
+                    updateScore();
+                } else {
+                    alert("Score must be an integer.");
+                    return false;
+                }
+            }
+
+            function removeScore() {
+                if (confirm('Remove last score?')) {
+                    scores.pop();
+                    updateScore();
+                }
+            }
+
+            function clearScores() {
+                if (confirm('Clear all scores?')) {
+                    scores.length = 0;
+                    updateScore();
+                }
+            }
+
+            function updateScore() {
+                document.getElementById("scoreList").innerHTML = "";
+                var total = 0;
+                for (var score in scores) {
+                    document.getElementById("scoreList").innerHTML += scores[score] + "<br>";
+                    total += scores[score];
+                }
+                document.getElementById("scoreList").innerHTML += "___<br><b>" + total + "</b>";
+            }
+        </script>
+
+    </body>
+</html> 
